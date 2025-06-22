@@ -2,6 +2,7 @@ from flask import Flask, request
 import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
+import os
 
 app = Flask(__name__)
 
@@ -69,13 +70,11 @@ def index():
     if plaka and not images and not videos and not infos:
         message = f"Plaka '{plaka}' üçün məlumat tapılmadı :("
 
-    # Resimler HTML
     images_html = "".join(
         f'<div class="led"><img src="{url}" style="max-width:90%; border-radius:10px; max-height:300px;"></div>'
         for url in images
     )
 
-    # Videolar HTML
     videos_html = "".join(
         f'''
         <div class="led">
@@ -87,7 +86,6 @@ def index():
         for url in videos
     )
 
-    # Bilgiler tablosu
     info_html = ""
     if infos:
         info_html += "<table style='margin: 20px auto; border-collapse: collapse;'>"
@@ -95,7 +93,6 @@ def index():
             info_html += f"<tr><td style='padding:5px; border:1px solid #555;'>{k}</td><td style='padding:5px; border:1px solid #555;'>{v}</td></tr>"
         info_html += "</table>"
 
-    # Sosyal medya linkleri
     social_html = f"""
         <div style="margin-top: 20px;">
             <div class="led"><b>TikTok:</b> {socials['tiktok']}</div>
@@ -162,4 +159,5 @@ def index():
     """
 
 if __name__ == "__main__":
-    app.run(host="0,0,0,0", port=8777, debug=True)
+    port = int(os.environ.get("PORT", 1111))  # Render'da PORT gelir, yoksa 1111
+    app.run(host="0.0.0.0", port=port)
