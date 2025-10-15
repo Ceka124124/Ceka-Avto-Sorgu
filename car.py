@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 def get_all_auto_data(plaka):
     try:
-        url = f"https://auto.bir23.com/az/car/{plaka}-azerbaijan"
+        url = f"https://bir23.com/az/searchCar?country_id=1&plateNumber={plaka}"
         ua = UserAgent()
         headers = {"User-Agent": ua.random}
         response = requests.get(url, headers=headers, timeout=10)
