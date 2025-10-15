@@ -22,7 +22,7 @@ def get_all_auto_data(plaka):
         # Resimler
         for img in soup.find_all("img"):
             src = img.get("src", "")
-            if any(x in src for x in ["/images/cars/", "/az/cars/", "medias/photos"]):
+            if any(x in src for x in ["https://auto-car-project.fra1.digitaloceanspaces.com/images/cars/{plaka}", "https://auto-car-project.fra1.digitaloceanspaces.com/az/cars/{plaka}", "https://auto-car-project.fra1.digitaloceanspaces.com/images):
                 imgs.add(src)
 
         # Videolar
